@@ -86,7 +86,11 @@ class Users
 
         $db = new db($this->dsn, $this->username, $this->password, $this->options);
 
-        $result = $db->select($this->tbl, "username = ". $username ." AND password =". $password ."");
+        $query = $db->select($this->tbl, "username = ". $username ." AND password =". $password ."");
+        
+        while ($query = ) {
+            
+        }
         
         return $result;
     }
