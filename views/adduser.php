@@ -2,11 +2,6 @@
 
 if (!empty($_POST['addUser'])) {
     
-    echo '<pre>';
-    print_r($_POST);
-    echo '</pre';
-
-    
     $insert = array(
         "username" => $_POST['username'],
         "password" => $_POST['password'],

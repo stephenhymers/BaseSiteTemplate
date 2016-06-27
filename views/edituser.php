@@ -1,9 +1,5 @@
 <?php
 
-echo '<pre>';
-print_r($_POST);
-echo '</pre>';
-
 $userId = $_GET['userid'];
 
 $users = new Users();

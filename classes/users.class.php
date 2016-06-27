@@ -45,6 +45,7 @@ class Users
     public function getAllUsers() {
         
         $db = new db($this->dsn, $this->username, $this->password, $this->options);
+        
         $result = $db->select($this->tbl, "admin = 0");
         
         return $result;
@@ -74,7 +75,7 @@ class Users
     public function activateUser($userId) {
 
         $db = new db($this->dsn, $this->username, $this->password, $this->options);
-
+        
         $update = array(
             "active" => 1
         );
@@ -82,16 +83,35 @@ class Users
         $db->update($this->tbl, $update, "user_id = ". $userId);
     }
     
+    
     public function loginUser($username, $password) {
+        
+        print_r($_SESSION);
 
         $db = new db($this->dsn, $this->username, $this->password, $this->options);
-
-        $query = $db->select($this->tbl, "username = ". $username ." AND password =". $password ."");
+                
+        $bind = array(
+            ":username" => $username,
+        );
         
-        while ($query = ) {
+        $result = $db->select($this->tbl, "username = :username", $bind);
+        
+        if ($result) {
+            $result = array_shift($result);
+        }
+            
+        if ($password === $result['password']) {
+
+            $_SESSION['user_session'] = $result;
+            
+            header('Location: ./?page=myaccount&userid='. $result['user_id'] .'');
             
         }
+        else {
+
+            return $result;
+        }
         
-        return $result;
     }
+    
 }

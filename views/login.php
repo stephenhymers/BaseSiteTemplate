@@ -1,15 +1,9 @@
 <?php
 
-echo '<pre>';
-print_r($_POST);
-echo '</pre';
-
 if (!empty($_POST['loginUser'])) {
     
     $users = new Users();
     $result = $users->loginUser($_POST['username'], $_POST['password']);
-    
-    print_r($result);
 }
 
 ?>

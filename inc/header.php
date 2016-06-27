@@ -1,5 +1,12 @@
 <?php
 
+session_start();
+
+if (!empty($_SESSION['user_session'])) {
+    
+    $userId = $_SESSION['user_session']['user_id'];
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
