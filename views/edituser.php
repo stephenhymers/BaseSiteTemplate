@@ -54,20 +54,6 @@ $result = array_shift($results);
                        </div>
                        <br>
                        <div class="row">
-                           <div class="col-md-8">
-                                Active:
-                                <?php
-                                if ($result['active'] == 1) {
-                                  echo '<input type="checkbox" name="active" value="1" checked />';
-                                }
-                                else {
-                                    echo '<input type="checkbox" name="active" value="0" />';
-                                }
-                                ?>
-                           </div>
-                       </div>
-                       <br>
-                       <div class="row">
                            <div class="col-md-12 text-center">
                                 <input class="btn btn-info" type="submit" name="editUser" value="Edit User">
                            </div>

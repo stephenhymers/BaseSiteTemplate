@@ -1,5 +1,9 @@
 <?php
 
+if (empty($_SESSION['user_session'])) {
+   header('Location: ./?page=login'); 
+}
+
 if (!empty($_POST['addUser'])) {
     
     $insert = array(
@@ -66,8 +70,8 @@ if (!empty($_POST['addUser'])) {
                            </div>
                        </div>
                     </div>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>

@@ -5,6 +5,8 @@ session_start();
 if (!empty($_SESSION['user_session'])) {
     
     $userId = $_SESSION['user_session']['user_id'];
+    $admin = $_SESSION['user_session']['admin'];
+    
 }
 
 ?>
@@ -67,18 +69,46 @@ if (!empty($_SESSION['user_session'])) {
                             <li><a href="./?page=users">Users</a></li>
                             <li><a href="./?page=adduser">Add User</a></li>
                         </ul>
+                    </li>
+                    <li role="presentation" class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Tickets<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="./?page=tickets">All Tickets</a></li>
+                            <li><a href="./?page=mytickets">My Tickets</a></li>
+                            <li><a href="./?page=addticket">Add Ticket</a></li>
+                        </ul>
+                    </li>';
+                }
+                if (!empty($userId) && empty($admin)) {
+                    echo '
+                    <li role="presentation" class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                            Tickets
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="./?page=mytickets">My Tickets</a></li>
+                            <li><a href="./?page=addticket">Add Ticket</a></li>
+                        </ul>
                     </li>';
                 }
                 if (!empty($userId)) {
                     echo '
-                    <li>
-                        <a href="./?page=myaccount&userid='. $userId .'">My Account</a>
+                    <li role="presentation" class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                            My Account
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="./?page=myaccount">My Account</a></li>
+                            <li><a href="./?page=logout">Logout</a></li>
+                        </ul>
                     </li>';
                 }
                 else {
                     echo '
                     <li role="presentation" class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Sign Up<span class="caret"></span></a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Login/Sign Up<span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="./?page=login">Login</a></li>
                             <li><a href="./?page=adduser">Register</a></li>

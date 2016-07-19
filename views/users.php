@@ -1,8 +1,5 @@
 <?php
 
-$admin = 1;
-
-
 if (!empty($_GET['userid']) && !empty($_GET['deleteuser']) && $_GET['deleteuser'] == 1) {
     
     $userId = $_GET['userid'];
@@ -34,7 +31,17 @@ if (!empty($_GET['userid']) && !empty($_GET['activateuser']) && $_GET['activateu
             <h1>Users</h1>
         </div>
     </div>
+    <br>
     <div class="row">
+        <div class="col-lg-6 text-right">
+            <button class="btn btn-info" onclick="var text = $(this).text(); $(this).text(text == 'Show Admin Users' ? 'Hide Admin Users' : 'Show Admin Users'); $('#adminUsers').toggleClass('hide');">Show Admin Users</button>
+        </div>
+        <div class="col-lg-6 text-left">
+            <button class="btn btn-info" onclick="var text = $(this).text(); $(this).text(text == 'Show Users' ? 'Hide Users' : 'Show Users'); $('#users').toggleClass('hide');">Show Users</button>
+        </div>
+    </div>
+    <br>
+    <div class="row hide" id="users">
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-primary">
                 <div class="panel-heading">
@@ -66,24 +73,24 @@ if (!empty($_GET['userid']) && !empty($_GET['activateuser']) && $_GET['activateu
                     foreach ($results as $r) {
                         echo '
                         <tr>
-                            <td width="10%">'. $r['user_id'] .'</td>
-                            <td width="10%">'. $r['username'] .'</td>
-                            <td width="20%">'. $r['email'] .'</td>
-                            <td width="10%">'. date('d/m/Y', $r['date_added']) .'</td>
-                            <td width="10%">'. (empty($r['date_updated']) ? 'N/A' : date('d/m/Y', $r['date_updated'])) .'</td>
-                            <td width="5%">'. $r['admin'] .'</td>
-                            <td width="5%">'. $r['active'] .'</td>';
+                            <td>'. $r['user_id'] .'</td>
+                            <td>'. $r['username'] .'</td>
+                            <td>'. $r['email'] .'</td>
+                            <td>'. date('d/m/Y | H:i', $r['date_added']) .'</td>
+                            <td>'. (empty($r['date_updated']) ? 'N/A' : date('d/m/Y | H:i', $r['date_updated'])) .'</td>
+                            <td>'. $r['admin'] .'</td>
+                            <td>'. $r['active'] .'</td>';
                             if ($admin) {
                                 echo '
                                 <td width="10%"><a class="btn btn-info form-control" href="./?page=edituser&userid='. $r['user_id'] .'">Edit</a></td>
-                                <td width="10%"><a class="btn btn-danger form-control" href="./?page=users&deleteuser=1&userid='. $r['user_id'] .'">Delete</a></td>';
+                                <td width="10%"><a class="btn btn-danger form-control" onclick="return confirm(\'Are you Sure?\');" href="./?page=users&deleteuser=1&userid='. $r['user_id'] .'">Delete</a></td>';
                                 if ($r['active'] == 1) {
                                     echo '
-                                    <td width="10%"><a class="btn btn-warning form-control" href="./?page=users&deactivateuser=1&userid='. $r['user_id'] .'">Deactivate</a></td>';
+                                    <td><a class="btn btn-warning form-control" href="./?page=users&deactivateuser=1&userid='. $r['user_id'] .'">Deactivate</a></td>';
                                 }
                                 else {
                                     echo '
-                                    <td width="10%"><a class="btn btn-success form-control" href="./?page=users&activateuser=1&userid='. $r['user_id'] .'">Activate</a></td>';
+                                    <td><a class="btn btn-success form-control" href="./?page=users&activateuser=1&userid='. $r['user_id'] .'">Activate</a></td>';
                                 }
                             }
                             echo '
@@ -94,7 +101,7 @@ if (!empty($_GET['userid']) && !empty($_GET['activateuser']) && $_GET['activateu
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="row hide" id="adminUsers">
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-primary">
                 <div class="panel-heading">
@@ -126,24 +133,24 @@ if (!empty($_GET['userid']) && !empty($_GET['activateuser']) && $_GET['activateu
                     foreach ($results as $r) {
                         echo '
                         <tr>
-                            <td width="10%">'. $r['user_id'] .'</td>
-                            <td width="10%">'. $r['username'] .'</td>
-                            <td width="20%">'. $r['email'] .'</td>
-                            <td width="10%">'. date('d/m/Y', $r['date_added']) .'</td>
-                            <td width="10%">'. (empty($r['date_updated']) ? 'N/A' : date('d/m/Y', $r['date_updated'])) .'</td>
-                            <td width="5%">'. $r['admin'] .'</td>
-                            <td width="5%">'. $r['active'] .'</td>';
+                            <td>'. $r['user_id'] .'</td>
+                            <td>'. $r['username'] .'</td>
+                            <td>'. $r['email'] .'</td>
+                            <td>'. date('d/m/Y | H:i', $r['date_added']) .'</td>
+                            <td>'. (empty($r['date_updated']) ? 'N/A' : date('d/m/Y | H:i', $r['date_updated'])) .'</td>
+                            <td>'. $r['admin'] .'</td>
+                            <td>'. $r['active'] .'</td>';
                             if ($admin) {
                                 echo '
-                                <td width="10%"><a class="btn btn-info form-control" href="./?page=edituser&userid='. $r['user_id'] .'">Edit</a></td>
-                                <td width="10%"><a class="btn btn-danger form-control" href="./?page=users&deleteuser=1&userid='. $r['user_id'] .'">Delete</a></td>';
+                                <td><a class="btn btn-info form-control" href="./?page=edituser&userid='. $r['user_id'] .'">Edit</a></td>
+                                <td><a class="btn btn-danger form-control" onclick="return confirm(\'Are you Sure?\');" href="./?page=users&deleteuser=1&userid='. $r['user_id'] .'">Delete</a></td>';
                                 if ($r['active'] == 1) {
                                     echo '
-                                    <td width="10%"><a class="btn btn-warning form-control" href="./?page=users&deactivateuser=1&userid='. $r['user_id'] .'">Deactivate</a></td>';
+                                    <td><a class="btn btn-warning form-control" href="./?page=users&deactivateuser=1&userid='. $r['user_id'] .'">Deactivate</a></td>';
                                 }
                                 else {
                                     echo '
-                                    <td width="10%"><a class="btn btn-success form-control" href="./?page=users&activateuser=1&userid='. $r['user_id'] .'">Activate</a></td>';
+                                    <td><a class="btn btn-success form-control" href="./?page=users&activateuser=1&userid='. $r['user_id'] .'">Activate</a></td>';
                                 }
                             }
                             echo '
